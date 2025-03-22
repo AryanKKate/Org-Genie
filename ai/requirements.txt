@@ -5,3 +5,4 @@ sentence-transformers
 google-generativeai
 requests  
 python-dotenv
+pymongo

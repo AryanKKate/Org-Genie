@@ -16,10 +16,10 @@ const App = () => {
   )
 }
 
-import Auth from "./Auth";
+// import Auth from "./Auth";
 
-function App() {
-  return <Auth />;
-}
+// function App() {
+//   return <Auth />;
+// }
 
 export default App;
