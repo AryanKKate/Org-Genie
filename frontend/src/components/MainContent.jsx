@@ -1,4 +1,3 @@
-import React, { useContext } from "react"
 import './MainContent.css'
 
 import {
@@ -13,8 +12,12 @@ import { MdAddPhotoAlternate } from "react-icons/md"
 import { IoMdSend } from "react-icons/io"
 import { Context } from "../context/Context"
 import geminiLogo from "../assets/modiji.png"
+import React, { useContext, useState } from "react"
+
 
 const MainContent = () => {
+  const [selectedFile, setSelectedFile] = useState(null);
+
   const {
     input,
     setInput,
@@ -37,7 +40,6 @@ const MainContent = () => {
       </div>
 
       <div className="max-w-[900px] mx-auto">
-        {/* Main Chat Section */}
         {!showResult ? (
           <>
             <div className="my-12 text-[56px] text-slate-500 font-semibold p-5">
@@ -109,7 +111,7 @@ const MainContent = () => {
               )}
             </div>
           </div>
-        )
+        )}
 
         <div className="absolute bottom-0 w-full max-w-[900px] px-5 mx-auto mt-5">
           <div className="flex items-center justify-between gap-20 bg-gray-200 py-2 px-5 rounded-full">
@@ -119,29 +121,29 @@ const MainContent = () => {
               className="flex-1 bg-transparent border-none outline-none p-2 text-lg"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              onKeyPress={handleKeyPress} // Add this to handle Enter key
             />
 
             <div className="flex gap-4 items-center">
-              <input
-                type="file"
-                accept=".pdf"
-                style={{ display: 'none' }}
-                id="file-upload"
-                onChange={(e) => {
-                  const file = e.target.files[0];
-                  if (file) {
-                    setSelectedFile(file);
-                    console.log('Selected file:', file);
-                  }
-                }}
-              />
-              <MdAddPhotoAlternate
-                id="gallery"
-                className="text-2xl cursor-pointer"
-                onClick={() => document.getElementById('file-upload').click()}
-              />
-              <MdAddPhotoAlternate className="text-2xl cursor-pointer" />
+
+            <input 
+    type="file"
+    accept=".pdf"
+    style={{ display: 'none' }}
+    id="file-upload"
+    onChange={(e) => {
+      const file = e.target.files[0];
+      if (file) {
+        setSelectedFile(file);
+        
+        console.log('Selected file:');
+      }
+    }}
+  />
+              
+              <MdAddPhotoAlternate id="gallery" className="text-2xl cursor-pointer" onClick={()=>{
+                document.getElementById('file-upload').click();
+              }}/>
+           
               <FaMicrophone className="text-2xl cursor-pointer" />
               {input && (
                 <IoMdSend
