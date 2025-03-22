@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import './MainContent.css';
-import { fetchFAQs, sendQuery } from './api';
+import { fetchFAQs, sendQuery } from "./api";
 import { FaUserCircle, FaMicrophone } from "react-icons/fa";
 import { MdAddPhotoAlternate } from "react-icons/md";
 import { IoMdSend } from "react-icons/io";
@@ -40,12 +40,11 @@ const MainContent = () => {
     try {
       const response = await sendQuery(input);
       const result = response?.response || "No response received.";
-      //const cat = response?.retrived_category || "No response received"
 
       // Store chat in history with timestamp
       setChatHistory((prev) => [
         ...prev,
-        { prompt: input, response: result, timestamp: new Date().toLocaleString()},
+        { prompt: input, response: result, timestamp: new Date().toLocaleString() },
       ]);
       setResultData(result); // Keep this for loading state consistency
     } catch (error) {
@@ -86,6 +85,38 @@ const MainContent = () => {
             <div className="my-1 text-[20px] text-slate-500 font-semibold px-7">
               <p>Most Frequently Asked Questions</p>
             </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-5">
+
+            <div className="h-[200px] p-4  rounded-lg relative cursor-pointer hover:bg-white-800" style={{ backgroundColor: 'rgba(37, 100, 235, 0.43)' }}>
+                 <p className=" font-medium text-lg" style={{ color: "black" } }>
+                     How does E-invoicing work in IDMS?
+                 </p>
+ 
+               </div>
+
+               <div className="h-[200px] p-4 bg-blue-300 rounded-lg relative cursor-pointer hover:bg-gray-100  > "style={{ backgroundColor: 'rgba(37, 100, 235, 0.43)' }}>
+                 <p className=" font-medium text-lg" style={{ color: "black" }}>
+                   What are the different types of GST in IDMS?
+                 </p>
+ 
+               </div>
+
+               <div className="h-[200px] p-4 bg-blue-300 rounded-lg relative cursor-pointer hover:bg-gray-300"style={{ backgroundColor: 'rgba(37, 100, 235, 0.43)' }}>
+                 <p className=" font-medium text-lg " style={{ color: "black" }}>
+                   How does IDMS automate GST payments"?
+                 </p>
+ 
+               </div>
+
+               <div className="h-[200px] p-4 bg-blue-300 rounded-lg relative cursor-pointer hover:bg-gray-300"style={{ backgroundColor: 'rgba(37, 100, 235, 0.43)' }}>
+                 <p className="font-medium text-lg" style={{ color: "black" }}>
+                   Can IDMS generate GST returns automatically?
+                 </p>
+
+                 </div>
+
+              </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-5">
               {faqs.map((faq, index) => (
@@ -142,12 +173,14 @@ const MainContent = () => {
         )}
 
         {/* Input Section */}
-        <div className="absolute bottom-0 w-full max-w-[900px] px-5 mx-auto mt-5">
-          <div className="flex items-center justify-between gap-20 bg-gray-200 py-2 px-5 rounded-full">
+
+        <div className="absolute bottom-0 w-full max-w-[900px] px-5 mx-auto mt-5 pb-5">
+          <div className="flex items-center justify-between gap-20 bg-gray-300 py-2 px-5 rounded-full">
             <input
               type="text"
               placeholder="Enter a prompt here..."
-              className="flex-1 bg-transparent border-none outline-none p-2 text-lg"
+              style={{ color: 'black' }}
+              className="flex-1 bg-transparent border-none outline-none p-2 text-lg "
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={handleKeyPress} // Add this to handle Enter key
@@ -168,14 +201,14 @@ const MainContent = () => {
               />
               <MdAddPhotoAlternate
                 id="gallery"
-                className="text-2xl cursor-pointer"
+                className="text-2xl cursor-pointer text-black"
                 onClick={() => document.getElementById('file-upload').click()}
               />
-              <FaMicrophone className="text-2xl cursor-pointer" />
+              <FaMicrophone className="text-2xl cursor-pointer text-black" />
               {input && (
                 <IoMdSend
                   onClick={handleSubmit}
-                  className="text-2xl cursor-pointer"
+                  className="text-2xl cursor-pointer text-black"
                 />
               )}
             </div>
