@@ -16,4 +16,10 @@ const App = () => {
   )
 }
 
-export default App
+import Auth from "./Auth";
+
+function App() {
+  return <Auth />;
+}
+
+export default App;

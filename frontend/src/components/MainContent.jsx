@@ -120,7 +120,26 @@ const MainContent = () => {
               onChange={(e) => setInput(e.target.value)}
             />
             <div className="flex gap-4 items-center">
-              <MdAddPhotoAlternate className="text-2xl cursor-pointer" />
+
+            <input 
+    type="file"
+    accept=".pdf"
+    style={{ display: 'none' }}
+    id="file-upload"
+    onChange={(e) => {
+      const file = e.target.files[0];
+      if (file) {
+        setSelectedFile(file);
+        
+        console.log('Selected file:');
+      }
+    }}
+  />
+              
+              <MdAddPhotoAlternate id="gallery" className="text-2xl cursor-pointer" onClick={()=>{
+                document.getElementById('file-upload').click();
+              }}/>
+           
               <FaMicrophone className="text-2xl cursor-pointer" />
               {input && (
                 <IoMdSend
