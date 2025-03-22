@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import './MainContent.css';
 import { fetchFAQs, sendQuery } from './api';
-
 import { FaUserCircle, FaMicrophone } from "react-icons/fa";
 import { MdAddPhotoAlternate } from "react-icons/md";
 import { IoMdSend } from "react-icons/io";
@@ -10,11 +9,12 @@ import geminiLogo from "../assets/modiji.png";
 const MainContent = () => {
   const [input, setInput] = useState('');
   const [recentPrompt, setRecentPrompt] = useState('');
-  const [prevPrompt, setPrevPrompt] = useState('');
   const [showResult, setShowResult] = useState(false);
   const [loading, setLoading] = useState(false);
   const [resultData, setResultData] = useState('');
   const [faqs, setFaqs] = useState([]);
+  const [chatHistory, setChatHistory] = useState([]);
+  const [selectedFile, setSelectedFile] = useState(null);
 
   // Fetch FAQs on component mount
   useEffect(() => {
@@ -32,15 +32,27 @@ const MainContent = () => {
   // Handle query submission
   const handleSubmit = async () => {
     if (!input.trim()) return;
+
     setLoading(true);
     setRecentPrompt(input);
     setShowResult(true);
 
     try {
       const response = await sendQuery(input);
-      setResultData(response?.response || "No response received.");
+      const result = response?.response || "No response received.";
+
+      // Store chat in history with timestamp
+      setChatHistory((prev) => [
+        ...prev,
+        { prompt: input, response: result, timestamp: new Date().toLocaleString() },
+      ]);
+      setResultData(result); // Keep this for loading state consistency
     } catch (error) {
       console.error("Error handling query:", error);
+      setChatHistory((prev) => [
+        ...prev,
+        { prompt: input, response: "Failed to get a response.", timestamp: new Date().toLocaleString() },
+      ]);
       setResultData("Failed to get a response.");
     }
 
@@ -56,6 +68,7 @@ const MainContent = () => {
       </div>
 
       <div className="max-w-[900px] mx-auto">
+        {/* Main Chat Section */}
         {!showResult ? (
           <>
             <div className="my-12 text-[56px] text-slate-500 font-semibold p-5">
@@ -64,7 +77,7 @@ const MainContent = () => {
 
             <div className="my-1 text-[20px] text-slate-500 font-semibold px-7">
               <p>Most Frequently Asked Questions</p>
-            </div>   
+            </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-5">
               {faqs.map((faq, index) => (
@@ -77,35 +90,46 @@ const MainContent = () => {
                     handleSubmit();
                   }}
                 >
-                  <p className="font-medium text-lg" style={{ color: "white" }}>
-                    {faq.question}
-                  </p>
+                  <p className="font-medium text-lg text-white">{faq.question}</p>
                 </div>
               ))}
             </div>
           </>
         ) : (
           <div className="py-0 px-[5%] max-h-[70vh] overflow-y-scroll scrollbar-hidden">
-            <div className="my-10 mx-0 flex items-center gap-5">
-              <FaUserCircle className="text-3xl" />
-              <p className="text-lg font-[400] leading-[1.8]">{recentPrompt}</p>
-            </div>
-
-            <div className="flex items-start gap-5">
-              <img src={geminiLogo} alt="Gemini" className="w-10 rounded-[50%]" />
-              {loading ? (
-                <div className="w-full flex flex-col gap-2">
-                  {[...Array(3)].map((_, i) => (
-                    <hr key={i} className="rounded-md border-none bg-gray-200 bg-gradient-to-r from-[#81cafe] via-[#ffffff] to-[#81cafe] p-4 animate-scroll-bg" />
-                  ))}
+            {/* Render Chat History */}
+            {chatHistory.map((chat, index) => (
+              <div key={index}>
+                {/* Prompt */}
+                <div className="my-10 mx-0 flex items-center gap-5">
+                  <FaUserCircle className="text-3xl" />
+                  <div>
+                    <p className="text-lg font-[400] leading-[1.8]">{chat.prompt}</p>
+                    <p className="text-xs text-gray-400">{chat.timestamp}</p>
+                  </div>
                 </div>
-              ) : (
-                <p
-                  dangerouslySetInnerHTML={{ __html: resultData }}
-                  className="text-lg font-[400] leading-[1.8]"
-                ></p>
-              )}
-            </div>
+
+                {/* Response */}
+                <div className="flex items-start gap-5 mb-10">
+                  <img src={geminiLogo} alt="Gemini" className="w-10 rounded-[50%]" />
+                  {loading && index === chatHistory.length - 1 ? (
+                    <div className="w-full flex flex-col gap-2">
+                      {[...Array(3)].map((_, i) => (
+                        <hr
+                          key={i}
+                          className="rounded-md border-none bg-gray-200 bg-gradient-to-r from-[#81cafe] via-[#ffffff] to-[#81cafe] p-4 animate-scroll-bg"
+                        />
+                      ))}
+                    </div>
+                  ) : (
+                    <p
+                      dangerouslySetInnerHTML={{ __html: chat.response }}
+                      className="text-lg font-[400] leading-[1.8]"
+                    ></p>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
         )}
 
@@ -120,26 +144,24 @@ const MainContent = () => {
               onChange={(e) => setInput(e.target.value)}
             />
             <div className="flex gap-4 items-center">
-
-            <input 
-    type="file"
-    accept=".pdf"
-    style={{ display: 'none' }}
-    id="file-upload"
-    onChange={(e) => {
-      const file = e.target.files[0];
-      if (file) {
-        setSelectedFile(file);
-        
-        console.log('Selected file:');
-      }
-    }}
-  />
-              
-              <MdAddPhotoAlternate id="gallery" className="text-2xl cursor-pointer" onClick={()=>{
-                document.getElementById('file-upload').click();
-              }}/>
-           
+              <input
+                type="file"
+                accept=".pdf"
+                style={{ display: 'none' }}
+                id="file-upload"
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  if (file) {
+                    setSelectedFile(file);
+                    console.log('Selected file:', file);
+                  }
+                }}
+              />
+              <MdAddPhotoAlternate
+                id="gallery"
+                className="text-2xl cursor-pointer"
+                onClick={() => document.getElementById('file-upload').click()}
+              />
               <FaMicrophone className="text-2xl cursor-pointer" />
               {input && (
                 <IoMdSend
@@ -153,6 +175,6 @@ const MainContent = () => {
       </div>
     </div>
   );
-}
+};
 
 export default MainContent;
