@@ -74,6 +74,7 @@ Provide a concise and direct response based on the FAQ.
         # Generate Response Using Gemini API
         model = genai.GenerativeModel("gemini-2.0-flash-lite-001")
         response = model.generate_content(prompt)
+        #print(response)
 
         return jsonify({"response": response.text})
     except Exception as e:
