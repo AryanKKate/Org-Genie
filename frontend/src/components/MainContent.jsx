@@ -1,56 +1,49 @@
-import React, { useContext, useState, useEffect } from "react"
-import './MainContent.css'
-import { fetchFAQs, sendQuery } from './api'
+import React, { useState, useEffect } from "react";
+import './MainContent.css';
+import { fetchFAQs, sendQuery } from './api';
 
-import {
-  FaUserCircle,
-  FaMicrophone,
-} from "react-icons/fa"
-import { FaMessage } from "react-icons/fa6"
-import { MdAddPhotoAlternate } from "react-icons/md"
-import { IoMdSend } from "react-icons/io"
-import { Context } from "../context/Context"
-import geminiLogo from "../assets/modiji.png"
+import { FaUserCircle, FaMicrophone } from "react-icons/fa";
+import { MdAddPhotoAlternate } from "react-icons/md";
+import { IoMdSend } from "react-icons/io";
+import geminiLogo from "../assets/modiji.png";
 
 const MainContent = () => {
-  const {
-    input,
-    setInput,
-    recentPrompt,
-    setRecentPrompt,
-    prevPrompt,
-    setPrevPrompt,
-    showResult,
-    loading,
-    setLoading,
-    resultData,
-    setResultData,
-    onSent,
-  } = useContext(Context);
-
+  const [input, setInput] = useState('');
+  const [recentPrompt, setRecentPrompt] = useState('');
+  const [prevPrompt, setPrevPrompt] = useState('');
+  const [showResult, setShowResult] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [resultData, setResultData] = useState('');
   const [faqs, setFaqs] = useState([]);
 
   // Fetch FAQs on component mount
   useEffect(() => {
     const loadFAQs = async () => {
-      const data = await fetchFAQs();
-      setFaqs(data);
+      try {
+        const data = await fetchFAQs();
+        setFaqs(data);
+      } catch (error) {
+        console.error("Error fetching FAQs:", error);
+      }
     };
     loadFAQs();
   }, []);
 
   // Handle query submission
   const handleSubmit = async () => {
-    if (!input) return;
+    if (!input.trim()) return;
     setLoading(true);
     setRecentPrompt(input);
+    setShowResult(true);
+
     try {
       const response = await sendQuery(input);
-      setResultData(response.response);
+      setResultData(response?.response || "No response received.");
     } catch (error) {
       console.error("Error handling query:", error);
       setResultData("Failed to get a response.");
     }
+
     setLoading(false);
     setInput('');
   };
@@ -140,7 +133,7 @@ const MainContent = () => {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default MainContent;

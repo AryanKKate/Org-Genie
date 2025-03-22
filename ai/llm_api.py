@@ -1,6 +1,7 @@
 import os
-from dotenv import load_dotenv
+
 import numpy as np
+from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 from sentence_transformers import SentenceTransformer
 import faiss
