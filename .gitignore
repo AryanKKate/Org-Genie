@@ -1,0 +1,24 @@
+# Ignore .DS_Store files (macOS system files)
+.DS_Store
+
+# Ignore Python virtual environment directory
+venv/
+
+# Ignore Python bytecode files
+__pycache__/
+*.pyc
+
+# Ignore environment variables file
+.env
+
+# Ignore any IDE files (e.g., PyCharm, VS Code)
+.idea/
+.vscode/
+
+# Ignore any temporary files
+*.log
+*.bak
+*.swp
+
+
+node_modules
