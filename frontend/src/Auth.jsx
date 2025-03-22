@@ -72,12 +72,14 @@ const analytics = getAnalytics(app1);
         <form onSubmit={handleSubmit}>
           <input
             type="email"
+            id="email"
             placeholder="Enter email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
             style={{
               width: "100%",
+              color: "black",
               padding: "10px",
               marginBottom: "10px",
               borderRadius: "5px",
@@ -85,6 +87,7 @@ const analytics = getAnalytics(app1);
             }}
           />
           <input
+          id="password"
             type="password"
             placeholder="Enter password"
             value={password}
@@ -92,6 +95,7 @@ const analytics = getAnalytics(app1);
             required
             style={{
               width: "100%",
+              color: "black",
               padding: "10px",
               marginBottom: "10px",
               borderRadius: "5px",
@@ -130,11 +134,15 @@ const analytics = getAnalytics(app1);
             onClick={()=>{
               console.log("Log")
               const auth = getAuth();
+              var emailinput=document.getElementById('email').value;
+              var passwordinput=document.getElementById('password').value;
+
               createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
                   // Signed up 
                   const user = userCredential.user;
                   console.log(user);
+             
                   // ...
                   navigateToAbout(); 
 

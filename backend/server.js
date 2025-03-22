@@ -3,7 +3,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const queryRoutes = require('./queryRoute');
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 
 const app = express();
