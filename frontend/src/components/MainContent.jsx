@@ -86,6 +86,26 @@ const MainContent = () => {
               <p>Most Frequently Asked Questions</p>
             </div>
 
+                  <p className=" font-medium text-lg" style={{ color: "white" } }>
+                     How does E-invoicing work in IDMS?
+                 </p>
+ 
+               </div>
+
+               <div className="h-[200px] p-4 bg-blue-300 rounded-lg relative cursor-pointer hover:bg-gray-100  > "style={{ backgroundColor: 'rgba(37, 100, 235, 0.13)' }}>
+                 <p className=" font-medium text-lg" style={{ color: "white" }}>
+                   What are the different types of GST in IDMS?
+                 </p>
+ 
+               </div>
+
+               <div className="h-[200px] p-4 bg-blue-300 rounded-lg relative cursor-pointer hover:bg-gray-300"style={{ backgroundColor: 'rgba(37, 100, 235, 0.13)' }}>
+                 <p className=" font-medium text-lg " style={{ color: "white" }}>
+                   How does IDMS automate GST payments"?
+                 </p>
+ 
+               </div>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-5">
               {faqs.map((faq, index) => (
                 <div
