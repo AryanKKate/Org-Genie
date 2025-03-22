@@ -1,10 +1,40 @@
 import React, { useState } from "react";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
+
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { useNavigate } from 'react-router-dom';
+
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true); // Toggle between Login and Signup
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCXzwnR_kqLsZ1YRK0oXOPaURiXTFetMBk",
+  authDomain: "hackai-99db0.firebaseapp.com",
+  projectId: "hackai-99db0",
+  storageBucket: "hackai-99db0.firebasestorage.app",
+  messagingSenderId: "356028608342",
+  appId: "1:356028608342:web:23091f9890c7afe58f30f7",
+  measurementId: "G-1STPMCQLKP"
+};
+
+// Initialize Firebase
+const app1 = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app1);
+
+
+
+  const navigate = useNavigate();
+
+  const navigateToAbout = () => {
+    navigate('/dashboard');
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -85,15 +115,36 @@ const Auth = () => {
             />
           )}
           <button
+           id="login/submit"
             type="submit"
             style={{
+              
               width: "100%",
               padding: "10px",
               borderRadius: "5px",
               background: "#2d50ff",
-              color: "#fff",
+              color: "black",
               border: "none",
               cursor: "pointer",
+            }}
+
+            onClick={()=>{
+              console.log("Log")
+              const auth = getAuth();
+              createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                  // Signed up 
+                  const user = userCredential.user;
+                  console.log(user);
+                  // ...
+                  navigateToAbout(); 
+
+                })
+                .catch((error) => {
+                  const errorCode = error.code;
+                  const errorMessage = error.message;
+                  // ..
+                });
             }}
           >
             {isLogin ? "Login" : "Signup"}
