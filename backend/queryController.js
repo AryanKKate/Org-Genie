@@ -16,6 +16,8 @@ exports.sendQueryToPython = async (req, res) => {
     const response = await axios.post("http://localhost:5001/query", { query });
     res.json(response.data);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Error in sendQueryToPython:", error.message);
+    res.status(500).json({ error: error.message, details: error.response?.data });
   }
 };
+
