@@ -19,6 +19,6 @@ __pycache__/
 *.log
 *.bak
 *.swp
-
+.env
 
 node_modules
