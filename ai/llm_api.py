@@ -60,7 +60,7 @@ def retrieve_and_generate():
         context = f"Question: {retrieved_question}\nAnswer: {retrieved_answer}"
      
         prompt = f"""
-You are a helpful assistant providing clear and concise answers using the given FAQ context. 
+You are a helpful assistant providing clear and concise answers using the given FAQ context. Give all info what you have about the topic. 
 If the FAQ context is sufficient to answer the user's query, respond directly. 
 If the context is irrelevant, say 'I'm sorry, I couldn't find the answer in the FAQ.'
 Do not speculate beyond the context.
