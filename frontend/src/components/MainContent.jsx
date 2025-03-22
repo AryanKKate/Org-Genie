@@ -4,7 +4,7 @@ import { fetchFAQs, sendQuery } from './api';
 import { FaUserCircle, FaMicrophone } from "react-icons/fa";
 import { MdAddPhotoAlternate } from "react-icons/md";
 import { IoMdSend } from "react-icons/io";
-import geminiLogo from "../assets/modiji.png";
+import botlogo from "../assets/logo.png";
 
 const MainContent = () => {
   const [input, setInput] = useState('');
@@ -60,6 +60,13 @@ const MainContent = () => {
     setInput('');
   };
 
+  // Handle Enter key press
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSubmit();
+    }
+  };
+
   return (
     <div className="main flex-1 min-h-screen pb-[15vh] relative">
       <div className="flex items-center justify-between text-xl p-5 text-slate-700">
@@ -111,7 +118,7 @@ const MainContent = () => {
 
                 {/* Response */}
                 <div className="flex items-start gap-5 mb-10">
-                  <img src={geminiLogo} alt="Gemini" className="w-10 rounded-[50%]" />
+                  <img src={botlogo} alt="Bot" className="w-10 rounded-[50%]" />
                   {loading && index === chatHistory.length - 1 ? (
                     <div className="w-full flex flex-col gap-2">
                       {[...Array(3)].map((_, i) => (
@@ -142,6 +149,7 @@ const MainContent = () => {
               className="flex-1 bg-transparent border-none outline-none p-2 text-lg"
               value={input}
               onChange={(e) => setInput(e.target.value)}
+              onKeyPress={handleKeyPress} // Add this to handle Enter key
             />
             <div className="flex gap-4 items-center">
               <input
