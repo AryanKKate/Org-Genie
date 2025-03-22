@@ -1,25 +1,17 @@
-import React from "react"
-import Sidebar from "./components/Sidebar"
-import MainContent from "./components/MainContent"
+import React from "react";
+import ContextProvider from "./context/Context";
+import MainContent from "./components/MainContent";
+import Sidebar from "./components/Sidebar";
 
 const App = () => {
   return (
-    <>
-      <div className="flex animate-fadeIn duration-1000">
+    <ContextProvider>
+      <div className="flex">
         <Sidebar />
-     
         <MainContent />
-    
-        
       </div>
-    </>
-  )
-}
-
-// import Auth from "./Auth";
-
-// function App() {
-//   return <Auth />;
-// }
+    </ContextProvider>
+  );
+};
 
 export default App;

@@ -40,11 +40,12 @@ const MainContent = () => {
     try {
       const response = await sendQuery(input);
       const result = response?.response || "No response received.";
+      //const cat = response?.retrived_category || "No response received"
 
       // Store chat in history with timestamp
       setChatHistory((prev) => [
         ...prev,
-        { prompt: input, response: result, timestamp: new Date().toLocaleString() },
+        { prompt: input, response: result, timestamp: new Date().toLocaleString()},
       ]);
       setResultData(result); // Keep this for loading state consistency
     } catch (error) {
