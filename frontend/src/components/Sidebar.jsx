@@ -21,7 +21,7 @@ const Sidebar = () => {
       <div>
         <IoMenu 
           onClick={() => setExtended(!extended)}
-          className="text-3xl block cursor-pointer text-white"
+          className="text-3xl block cursor-pointer text-white mx-1.5"
         />
 
         <div
@@ -35,7 +35,7 @@ const Sidebar = () => {
 
         {extended && (
           <div className="flex flex-col animate-fadeIn duration-1000">
-            <p className="mt-7 mb-5  text-white">Recent</p>
+            <p className="mt-7 mb-5 pl-2 text-white">Recent</p>
 
             {prevPrompt?.map((item, index) => {
               return (

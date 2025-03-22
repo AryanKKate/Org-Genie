@@ -1,4 +1,3 @@
-import React, { useContext } from "react"
 import './MainContent.css'
 
 import {
@@ -13,8 +12,12 @@ import { MdAddPhotoAlternate } from "react-icons/md"
 import { IoMdSend } from "react-icons/io"
 import { Context } from "../context/Context"
 import geminiLogo from "../assets/modiji.png"
+import React, { useContext, useState } from "react"
+
 
 const MainContent = () => {
+  const [selectedFile, setSelectedFile] = useState(null);
+
   const {
     input,
     setInput,
@@ -121,7 +124,26 @@ const MainContent = () => {
             />
 
             <div className="flex gap-4 items-center">
-              <MdAddPhotoAlternate className="text-2xl cursor-pointer" />
+
+            <input 
+    type="file"
+    accept=".pdf"
+    style={{ display: 'none' }}
+    id="file-upload"
+    onChange={(e) => {
+      const file = e.target.files[0];
+      if (file) {
+        setSelectedFile(file);
+        
+        console.log('Selected file:');
+      }
+    }}
+  />
+              
+              <MdAddPhotoAlternate id="gallery" className="text-2xl cursor-pointer" onClick={()=>{
+                document.getElementById('file-upload').click();
+              }}/>
+           
               <FaMicrophone className="text-2xl cursor-pointer" />
               {input && (
                 <IoMdSend
