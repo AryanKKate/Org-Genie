@@ -13,7 +13,7 @@ exports.getFAQs = async (req, res) => {
 exports.sendQueryToPython = async (req, res) => {
   const { query } = req.body;
   try {
-    const response = await axios.post(process.env.PYTHON_API_URL, { query });
+    const response = await axios.post("http://localhost:5001/query", { query });
     res.json(response.data);
   } catch (error) {
     res.status(500).json({ error: error.message });

@@ -7,6 +7,9 @@ venv/
 # Ignore Python bytecode files
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+
 
 # Ignore environment variables file
 .env
@@ -22,3 +25,6 @@ __pycache__/
 .env
 
 node_modules
+
+.venv/
+env/

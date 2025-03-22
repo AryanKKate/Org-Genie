@@ -60,12 +60,12 @@ const analytics = getAnalytics(app1);
       <div
         style={{
           background: "rgba(255, 255, 255, 0.1)",
-          padding: "20px",
           borderRadius: "10px",
           backdropFilter: "blur(10px)",
           textAlign: "center",
           color: "#fff",
-          width: "300px",
+          width: "350px",
+          padding: "20px 80px 20px 60px",
         }}
       >
         <h2>{isLogin ? "Login" : "Signup"}</h2>
@@ -118,8 +118,7 @@ const analytics = getAnalytics(app1);
            id="login/submit"
             type="submit"
             style={{
-              
-              width: "100%",
+              width: "105.7%",
               padding: "10px",
               borderRadius: "5px",
               background: "#2d50ff",
