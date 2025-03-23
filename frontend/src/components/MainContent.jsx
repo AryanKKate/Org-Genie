@@ -85,6 +85,36 @@ const MainContent = () => {
     }
   };
 
+  const handleCardClick = (query) => {
+    // Directly submit the query from a card click
+    setLoading(true);
+    setShowResult(true);
+  
+    sendQuery(query)
+      .then((response) => {
+        const result = response?.response || "No response received.";
+        setChatHistory((prev) => [
+          ...prev,
+          { prompt: query, response: result, timestamp: new Date().toLocaleString() },
+        ]);
+        setResultData(result);
+        speakResponse(result);
+      })
+      .catch((error) => {
+        console.error("Error handling query:", error);
+        setChatHistory((prev) => [
+          ...prev,
+          { prompt: query, response: "Failed to get a response.", timestamp: new Date().toLocaleString() },
+        ]);
+        setResultData("Failed to get a response.");
+      })
+      .finally(() => {
+        setLoading(false);
+        setInput(''); // Optionally clear the input if used elsewhere.
+      });
+  };
+  
+
   // Voice Input: Convert speech to text
   const handleVoiceInput = () => {
     const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
@@ -178,36 +208,54 @@ const MainContent = () => {
       <div className="max-w-[900px] mx-auto">
         {/* Main Chat Section */}
         {!showResult ? (
-          <>
-            <div className="my-12 text-[56px] text-slate-500 font-semibold p-5">
-              <p className="text-slate-400">How may I assist you?</p>
-            </div>
-            <div className="my-1 text-[20px] text-slate-500 font-semibold px-7">
-              <p>Most Frequently Asked Questions</p>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-5">
-              <div className="h-[200px] p-4 rounded-lg relative cursor-pointer hover:bg-white-800" style={{ backgroundColor: 'rgba(37, 100, 235, 0.43)' }}>
-                <p className="font-medium text-lg" style={{ color: "black" }}>
-                  How does E-invoicing work in IDMS?
-                </p>
-              </div>
-              <div className="h-[200px] p-4 rounded-lg relative cursor-pointer hover:bg-gray-100" style={{ backgroundColor: 'rgba(37, 100, 235, 0.43)' }}>
-                <p className="font-medium text-lg" style={{ color: "black" }}>
-                  What are the different types of GST in IDMS?
-                </p>
-              </div>
-              <div className="h-[200px] p-4 rounded-lg relative cursor-pointer hover:bg-gray-300" style={{ backgroundColor: 'rgba(37, 100, 235, 0.43)' }}>
-                <p className="font-medium text-lg" style={{ color: "black" }}>
-                  How does IDMS automate GST payments?
-                </p>
-              </div>
-              <div className="h-[200px] p-4 rounded-lg relative cursor-pointer hover:bg-gray-300" style={{ backgroundColor: 'rgba(37, 100, 235, 0.43)' }}>
-                <p className="font-medium text-lg" style={{ color: "black" }}>
-                  Can IDMS generate GST returns automatically?
-                </p>
-              </div>
-            </div>
-          </>
+         <>
+         <div className="my-12 text-[56px] text-slate-500 font-semibold p-5">
+           <p className="text-slate-400">How may I assist you?</p>
+         </div>
+         <div className="my-1 text-[20px] text-slate-500 font-semibold px-7">
+           <p>Most Frequently Asked Questions</p>
+         </div>
+         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-5">
+           <div
+             className="h-[200px] p-4 rounded-lg relative cursor-pointer hover:bg-white-800"
+             style={{ backgroundColor: 'rgba(37, 100, 235, 0.43)' }}
+             onClick={() => handleCardClick("How does E-invoicing work in IDMS?")}
+           >
+             <p className="font-medium text-lg" style={{ color: "black" }}>
+               How does E-invoicing work in IDMS?
+             </p>
+           </div>
+           <div
+             className="h-[200px] p-4 rounded-lg relative cursor-pointer hover:bg-gray-100"
+             style={{ backgroundColor: 'rgba(37, 100, 235, 0.43)' }}
+             onClick={() => handleCardClick("What are the different types of GST in IDMS?")}
+           >
+             <p className="font-medium text-lg" style={{ color: "black" }}>
+               What are the different types of GST in IDMS?
+             </p>
+           </div>
+           <div
+             className="h-[200px] p-4 rounded-lg relative cursor-pointer hover:bg-gray-300"
+             style={{ backgroundColor: 'rgba(37, 100, 235, 0.43)' }}
+             onClick={() => handleCardClick("How does IDMS automate GST payments?")}
+           >
+             <p className="font-medium text-lg" style={{ color: "black" }}>
+               How does IDMS automate GST payments?
+             </p>
+           </div>
+           <div
+             className="h-[200px] p-4 rounded-lg relative cursor-pointer hover:bg-gray-300"
+             style={{ backgroundColor: 'rgba(37, 100, 235, 0.43)' }}
+             onClick={() => handleCardClick("Can IDMS generate GST returns automatically?")}
+           >
+             <p className="font-medium text-lg" style={{ color: "black" }}>
+               Can IDMS generate GST returns automatically?
+             </p>
+           </div>
+         </div>
+       </>
+       
+
         ) : (
           <div className="py-0 px-[5%] max-h-[70vh] overflow-y-scroll scrollbar-hidden">
             {/* Render Chat History */}
