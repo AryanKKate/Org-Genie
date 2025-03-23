@@ -120,7 +120,7 @@ def retrieve_and_generate():
         prompt = f"""
 You are a helpful assistant providing clear and concise answers using the given FAQ context.
 If the FAQ context is sufficient to answer the user's query, respond directly.
-If the context is irrelevant, say 'No FAQ in Knowledge Base , Please Upate'
+If the context is irrelevant, say 'I'm sorry, I couldn't find the answer in the FAQ.'
 Do not speculate beyond the context.
 
 User Query: {query}
