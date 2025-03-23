@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {  signInWithEmailAndPassword } from "firebase/auth";
+
 
 
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { useNavigate } from 'react-router-dom';
 
-
+export let admin = "";
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true); // Toggle between Login and Signup
   const [email, setEmail] = useState("");
@@ -132,27 +134,48 @@ const analytics = getAnalytics(app1);
             }}
 
             onClick={()=> {
-              console.log("Log")
-              const auth = getAuth();
-              var emailinput=document.getElementById('email').value;
-              var passwordinput=document.getElementById('password').value;
-
-               createUserWithEmailAndPassword(auth, emailinput, passwordinput)
-                .then((userCredential) => {
-                  // Signed up 
-                  const user = userCredential.user;
-                  console.log(user);
-             
-                  // ...
-                  navigateToAbout(); 
-
-                })
-                .catch((error) => {
-                  const errorCode = error.code;
-                  const errorMessage = error.message;
-                  console.log(errorCode, errorMessage);
-                  // ..
-                });
+              if(isLogin){
+                var emailinput=document.getElementById('email').value;
+                var passwordinput=document.getElementById('password').value;
+                const auth = getAuth();
+                signInWithEmailAndPassword(auth, emailinput, passwordinput)
+                  .then((userCredential) => {
+                    // Signed in 
+                    const user = userCredential.user;
+                    console.log(user.email);
+                   admin=user.email;
+                    // ...
+                    navigateToAbout(); 
+                  })
+                  .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                  });
+              }
+              else{
+                console.log("Log")
+                const auth = getAuth();
+                var emailinput=document.getElementById('email').value;
+                var passwordinput=document.getElementById('password').value;
+  
+                 createUserWithEmailAndPassword(auth, emailinput, passwordinput)
+                  .then((userCredential) => {
+                    // Signed up 
+                    const user = userCredential.user;
+                    console.log(user.email);
+               
+                    // ...
+                
+  
+                  })
+                  .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.log(errorCode, errorMessage);
+                    // ..
+                  });
+              }
+           
             }}
           >
             {isLogin ? "Login" : "Signup"}
