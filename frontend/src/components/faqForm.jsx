@@ -59,12 +59,12 @@ const FaqForm = () => {
               onChange={(e) => setAnswer(e.target.value)}
             />
             <hr className="border-gray-400 my-2" />
-            <textarea
+            {/* <textarea
               placeholder="Or enter JSON input..."
               className="w-full bg-transparent border-none outline-none p-2 text-lg text-black resize-none"
               value={jsonInput}
               onChange={(e) => setJsonInput(e.target.value)}
-            />
+            /> */}
             <div className="flex justify-between items-center mt-4">
               <div className="flex gap-4 items-center">
                 <input

@@ -172,13 +172,22 @@ const MainContent = () => {
     <p className="whitespace-nowrap">IDMS Genie</p>
   </div>
   {admin === '2022.aditya.mhatre@ves.ac.in' && (
+  <div className="flex justify-end items-center gap-3">
     <Link to="/update">
       <button className="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5">
         Update
       </button>
     </Link>
-  )}
+    <Link to="/dash">
+      <button className="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5">
+        Dashboard
+      </button>
+    </Link>
+  </div>
+)}
+
 </div>
+
 
 
       {/* <div className="flex items-center justify-between text-xl p-5 text-slate-700">

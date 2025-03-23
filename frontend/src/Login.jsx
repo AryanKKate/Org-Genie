@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const Auth = () => {
-  const [isLogin, setIsLogin] = useState(true); // Toggle state
+  const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -16,42 +16,17 @@ const Auth = () => {
   };
 
   return (
-    <div
-      style={{
-        fontFamily: "'Raleway', sans-serif",
-        background: "linear-gradient(90deg, #2d50ff, #000000, #000000)",
-        minHeight: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <div
-        style={{
-          background: "rgba(255, 255, 255, 0.1)",
-          padding: "20px",
-          borderRadius: "10px",
-          backdropFilter: "blur(10px)",
-          textAlign: "center",
-          color: "#fff",
-          width: "300px",
-        }}
-      >
-        <h2>{isLogin ? "Login" : "Signup"}</h2>
-        <form onSubmit={handleSubmit}>
+    <div className="min-h-screen flex justify-center items-center bg-gradient-to-r from-blue-500 via-black to-black">
+      <div className="bg-white/10 p-6 rounded-lg backdrop-blur-md text-center text-white w-80">
+        <h2 className="text-2xl font-bold mb-4">{isLogin ? "Login" : "Signup"}</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="email"
             placeholder="Enter email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            style={{
-              width: "100%",
-              padding: "10px",
-              marginBottom: "10px",
-              borderRadius: "5px",
-              border: "none",
-            }}
+            className="w-full p-2 rounded border-none outline-none text-black"
           />
           <input
             type="password"
@@ -59,13 +34,7 @@ const Auth = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            style={{
-              width: "100%",
-              padding: "10px",
-              marginBottom: "10px",
-              borderRadius: "5px",
-              border: "none",
-            }}
+            className="w-full p-2 rounded border-none outline-none text-black"
           />
           {!isLogin && (
             <input
@@ -74,38 +43,19 @@ const Auth = () => {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
-              style={{
-                width: "100%",
-                padding: "10px",
-                marginBottom: "10px",
-                borderRadius: "5px",
-                border: "none",
-              }}
+              className="w-full p-2 rounded border-none outline-none text-black"
             />
           )}
           <button
             type="submit"
-            style={{
-              width: "100%",
-              padding: "10px",
-              borderRadius: "5px",
-              background: "#2d50ff",
-              color: "#fff",
-              border: "none",
-              cursor: "pointer",
-            }}
+            className="w-full p-2 rounded bg-blue-600 hover:bg-blue-800 text-white cursor-pointer"
           >
             {isLogin ? "Login" : "Signup"}
           </button>
         </form>
         <p
           onClick={() => setIsLogin(!isLogin)}
-          style={{
-            marginTop: "10px",
-            cursor: "pointer",
-            color: "#2d50ff",
-            textDecoration: "underline",
-          }}
+          className="mt-4 cursor-pointer text-blue-300 underline"
         >
           {isLogin
             ? "Don't have an account? Signup"

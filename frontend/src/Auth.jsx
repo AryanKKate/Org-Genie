@@ -51,8 +51,8 @@ const analytics = getAnalytics(app1);
     <div
       style={{
         fontFamily: "'Raleway', sans-serif",
-        background:
-          "linear-gradient(to bottom, #000000 0%, #0A0A33 50%, #1D1D80 70%, #2d50ff 100%)",
+        // background:
+        //   "linear-gradient(to bottom, #000000 0%, #0A0A33 50%, #1D1D80 70%, #2d50ff 100%)",
         minHeight: "100vh",
         display: "flex",
         justifyContent: "center",
@@ -61,7 +61,7 @@ const analytics = getAnalytics(app1);
     >
       <div
         style={{
-          background: "rgba(255, 255, 255, 0.1)",
+          background: "gray",
           borderRadius: "10px",
           backdropFilter: "blur(10px)",
           textAlign: "center",
@@ -121,13 +121,15 @@ const analytics = getAnalytics(app1);
             />
           )}
           <button
+          onhover="Green"
            id="login/submit"
             type="submit"
             style={{
-              width: "105.7%",
+              width: "100%",
               padding: "10px",
               borderRadius: "5px",
-              background: "#2d50ff",
+              background: "Green",
+            
               color: "black",
               border: "none",
               cursor: "pointer",
@@ -186,7 +188,7 @@ const analytics = getAnalytics(app1);
           style={{
             marginTop: "10px",
             cursor: "pointer",
-            color: "#2d50ff",
+            color: "black",
             textDecoration: "underline",
           }}
         >
