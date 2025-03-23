@@ -4,6 +4,7 @@ import MainContent from "./components/MainContent";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // Using Router and Routes in v6
 import Auth from "./Auth";
 import FaqForm from "./components/faqForm";
+import Dashboard from "./components/dashboard";
 // Assuming you have a NewScreen component
 
 const App = () => {
@@ -26,6 +27,7 @@ const App = () => {
                                    
     } />
     <Route path ="/update" element={<FaqForm></FaqForm>}/>
+    <Route path ="/dash" element={<Dashboard></Dashboard>}/>
     
       
     </Routes>
