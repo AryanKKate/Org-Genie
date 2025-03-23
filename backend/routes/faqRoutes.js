@@ -61,18 +61,53 @@ router.post("/add-faq", async (req, res) => {
 
     console.log("  FAQ saved successfully!");
 
-    // 🔄 **Automatically update FAISS index after saving**
+    //  **Automatically update FAISS index after saving**
     axios.post("http://localhost:5001/update_index")
       .then(response => console.log("   FAISS index updated:", response.data))
       .catch(error => console.error("   FAISS update failed:", error.response?.data || error.message));
+      console.log("POST request sent to update FAISS index");
 
     res.status(201).json({ message: "FAQ added successfully", data: newFaq });
 
   } catch (error) {
-    console.error("   ❌ Error Saving FAQ:", error);
+    console.error("   Error Saving FAQ:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+router.post("/add-faq-bulk", async (req, res) => {
+  try {
+    const { faqs } = req.body;
+
+    if (!Array.isArray(faqs) || faqs.length === 0) {
+      return res.status(400).json({ error: "Invalid FAQ data" });
+    }
+
+    // Categorize and save FAQs
+    const faqDocuments = faqs.map(({ question, answer }) => ({
+      question,
+      answer,
+      category: classifyCategory(question),
+      hit: 0
+    }));
+
+    await Faq.insertMany(faqDocuments);
+
+    console.log(" FAQs saved successfully!");
+
+    //  **Trigger FAISS update after bulk insert**
+    axios.post("http://localhost:5001/update_index")
+      .then(response => console.log("   FAISS index updated:", response.data))
+      .catch(error => console.error("   FAISS update failed:", error.response?.data || error.message));
+
+    res.status(201).json({ message: "FAQs added successfully", count: faqs.length });
+
+  } catch (error) {
+    console.error(" Error Saving FAQs:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 
 
 

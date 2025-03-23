@@ -44,7 +44,7 @@ def rebuild_faiss():
 
     with faiss_lock:  # Ensure thread safety
         try:
-            print("🔄 Refreshing FAISS index...")
+            print(" Refreshing FAISS index...")
 
             faq_data = load_data()
             if not faq_data:
@@ -64,7 +64,7 @@ def rebuild_faiss():
             index = faiss.IndexFlatL2(dimension)
             index.add(np.array(question_embeddings))  
 
-            print("✅ FAISS index refreshed successfully.")
+            print(" FAISS index refreshed successfully.")
 
         except Exception as e:
             print(f" FAISS Refresh Error: {str(e)}")

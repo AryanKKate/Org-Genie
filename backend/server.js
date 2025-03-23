@@ -37,7 +37,7 @@ app.get('/dash', async (req, res) => {
           faqs: { $push: "$$ROOT" }
         }
       },
-      { $sort: { _id: 1 } } // Sort groups alphabetically by category
+      { $sort: { _id: 1 } } 
     ]);
 
     res.json(groupedFAQs);

@@ -1,0 +1,11 @@
+[
+    {
+      "question": "What is React?",
+      "answer": "React is a JavaScript library for building user interfaces."
+    },
+    {
+      "question": "What is Node.js?",
+      "answer": "Node.js is a JavaScript runtime built on Chrome's V8 engine."
+    }
+  ]
+  
