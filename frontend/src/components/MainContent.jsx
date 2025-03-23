@@ -6,6 +6,8 @@ import { MdAddPhotoAlternate } from "react-icons/md";
 import { IoMdSend } from "react-icons/io";
 import botlogo from "../assets/logo.png";
 import { admin } from "../Auth.jsx";
+import { Link } from "react-router-dom";
+
 
 const MainContent = () => {
   const [input, setInput] = useState('');
@@ -133,6 +135,17 @@ const MainContent = () => {
   return (
     <div className="main flex-1 min-h-screen pb-[15vh] relative">
       <div className="flex items-center justify-between text-xl p-5 text-slate-700">
+  <p>Neural Search</p>
+  {admin === '2022.aditya.mhatre@ves.ac.in' && (
+    <Link to="/update">
+      <button className="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5">
+        Update
+      </button>
+    </Link>
+  )}
+</div>
+
+      {/* <div className="flex items-center justify-between text-xl p-5 text-slate-700">
         <p>Neural Search</p>
         {admin === '2022.aditya.mhatre@ves.ac.in' && (
           <div className="relative dropdown-container">
@@ -160,7 +173,7 @@ const MainContent = () => {
             )}
           </div>
         )}
-      </div>
+      </div> */}
 
       <div className="max-w-[900px] mx-auto">
         {/* Main Chat Section */}
