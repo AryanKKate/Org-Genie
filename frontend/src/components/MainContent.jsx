@@ -7,6 +7,8 @@ import { IoMdSend } from "react-icons/io";
 import botlogo from "../assets/logo.png";
 import { admin } from "../Auth.jsx";
 import { Link } from "react-router-dom";
+import logo from "../assets/logo.png";
+import user from "../assets/user.jpg";
 
 
 const MainContent = () => {
@@ -165,7 +167,10 @@ const MainContent = () => {
   return (
     <div className="main flex-1 min-h-screen pb-[15vh] relative">
       <div className="flex items-center justify-between text-xl p-5 text-slate-700">
-  <p>Neural Search</p>
+  <div className="flex items-center gap-3">
+    <img src={logo} alt="Logo" className="w-10 h-10 object-contain" />
+    <p className="whitespace-nowrap">IDMS Genie</p>
+  </div>
   {admin === '2022.aditya.mhatre@ves.ac.in' && (
     <Link to="/update">
       <button className="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5">
@@ -174,6 +179,7 @@ const MainContent = () => {
     </Link>
   )}
 </div>
+
 
       {/* <div className="flex items-center justify-between text-xl p-5 text-slate-700">
         <p>Neural Search</p>
@@ -263,7 +269,7 @@ const MainContent = () => {
               <div key={index}>
                 {/* Prompt */}
                 <div className="my-10 mx-0 flex items-center gap-5">
-                  <FaUserCircle className="text-3xl" />
+                <img src={user} alt="User" className="w-10 rounded-[50%]" />
                   <div>
                     <p className="text-lg font-[400] leading-[1.8]">{chat.prompt}</p>
                     <p className="text-xs text-gray-400">{chat.timestamp}</p>
@@ -319,11 +325,11 @@ const MainContent = () => {
                   }
                 }}
               />
-              <MdAddPhotoAlternate
+              {/* <MdAddPhotoAlternate
                 id="gallery"
                 className="text-2xl cursor-pointer text-black"
                 onClick={() => document.getElementById('file-upload').click()}
-              />
+              /> */}
               <FaMicrophone
                 className={`text-2xl cursor-pointer ${isListening ? "text-red-500" : "text-black"}`}
                 onClick={handleVoiceInput}
