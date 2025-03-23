@@ -1,0 +1,202 @@
+{
+    "sales": [
+      {
+        "Customer_ID": "CUST001",
+        "Name": "ABC Corp",
+        "Credit_Limit": 50000
+      },
+      {
+        "Customer_ID": "CUST002",
+        "Name": "XYZ Ltd",
+        "Credit_Limit": 75000
+      },
+      {
+        "Customer_ID": "CUST003",
+        "Name": "Global Traders",
+        "Credit_Limit": 60000
+      },
+      {
+        "Transaction_ID": "SO001",
+        "Type": "Sales Order",
+        "Customer": "CUST001",
+        "SKU": "P001",
+        "Quantity": 5
+      },
+      {
+        "Transaction_ID": "SO002",
+        "Type": "Sales Order",
+        "Customer": "CUST002",
+        "SKU": "P002",
+        "Quantity": 3
+      },
+      {
+        "Transaction_ID": "SO003",
+        "Type": "Sales Order",
+        "Customer": "CUST003",
+        "SKU": "P003",
+        "Quantity": 8
+      }
+    ],
+    "purchase": [
+      {
+        "Supplier_ID": "SUP001",
+        "Name": "RawMat Suppliers",
+        "Credit_Terms": "30 Days"
+      },
+      {
+        "Supplier_ID": "SUP002",
+        "Name": "Tech Parts Ltd",
+        "Credit_Terms": "45 Days"
+      },
+      {
+        "Supplier_ID": "SUP003",
+        "Name": "ElectroSource",
+        "Credit_Terms": "60 Days"
+      },
+      {
+        "Transaction_ID": "PO001",
+        "Type": "Purchase Order",
+        "Supplier": "SUP001",
+        "Item": "RAM Modules",
+        "Quantity": 50
+      },
+      {
+        "Transaction_ID": "PO002",
+        "Type": "Purchase Order",
+        "Supplier": "SUP002",
+        "Item": "Hard Drives",
+        "Quantity": 30
+      },
+      {
+        "Transaction_ID": "PO003",
+        "Type": "Purchase Order",
+        "Supplier": "SUP003",
+        "Item": "Motherboards",
+        "Quantity": 20
+      }
+    ],
+    "stores": [
+      {
+        "Zone_ID": "Z001",
+        "Name": "Main Store"
+      },
+      {
+        "Zone_ID": "Z002",
+        "Name": "Stock Prep Store"
+      },
+      {
+        "Zone_ID": "Z003",
+        "Name": "Spare Parts Storage"
+      },
+      {
+        "Transaction_ID": "GRN001",
+        "Type": "Goods Receipt",
+        "Supplier": "SUP001",
+        "Item": "RAM Modules",
+        "Quantity": 50
+      },
+      {
+        "Transaction_ID": "GIN001",
+        "Type": "Goods Issue",
+        "Department": "Production",
+        "Item": "RAM Modules",
+        "Quantity": 20
+      },
+      {
+        "Transaction_ID": "GIN002",
+        "Type": "Goods Issue",
+        "Department": "R&D",
+        "Item": "Hard Drives",
+        "Quantity": 10
+      }
+    ],
+    "production": [
+      {
+        "Material_ID": "RM001",
+        "Name": "Aluminum Sheets"
+      },
+      {
+        "Material_ID": "RM002",
+        "Name": "Plastic Casings"
+      },
+      {
+        "Material_ID": "RM003",
+        "Name": "Copper Wiring"
+      },
+      {
+        "Transaction_ID": "BATCH001",
+        "Type": "Batch Card Entry",
+        "Product": "Laptop",
+        "Quantity": 100
+      },
+      {
+        "Transaction_ID": "BATCH002",
+        "Type": "Batch Card Entry",
+        "Product": "Desktop PC",
+        "Quantity": 50
+      },
+      {
+        "Transaction_ID": "GTR001",
+        "Type": "Goods Transfer",
+        "From": "Main Store",
+        "To": "Production"
+      },
+      {
+        "Transaction_ID": "GTR002",
+        "Type": "Goods Transfer",
+        "From": "Stock Prep Store",
+        "To": "R&D"
+      }
+    ],
+    "quality": [
+      {
+        "Checklist_ID": "QC001",
+        "Process": "Material Inspection",
+        "Criteria": "Surface Finish, Dimensions"
+      },
+      {
+        "Checklist_ID": "QC002",
+        "Process": "Final Assembly Check",
+        "Criteria": "Functionality, Fitment, Finish"
+      },
+      {
+        "Transaction_ID": "MRN001",
+        "Type": "Material Inspection",
+        "Material": "Aluminum Sheets",
+        "Result": "Passed"
+      },
+      {
+        "Transaction_ID": "MRN002",
+        "Type": "Material Inspection",
+        "Material": "Plastic Casings",
+        "Result": "Failed"
+      }
+    ],
+    "dispatch_logistics": [
+      {
+        "Mode_ID": "SM001",
+        "Type": "Air Freight"
+      },
+      {
+        "Mode_ID": "SM002",
+        "Type": "Road Transport"
+      },
+      {
+        "Mode_ID": "SM003",
+        "Type": "Sea Freight"
+      },
+      {
+        "Transaction_ID": "DRN001",
+        "Type": "Sales Order Dispatch",
+        "Order": "SO001",
+        "Carrier": "DHL"
+      },
+      {
+        "Transaction_ID": "DRN002",
+        "Type": "Sales Order Dispatch",
+        "Order": "SO002",
+        "Carrier": "FedEx"
+      }
+    ]
+  }
+  

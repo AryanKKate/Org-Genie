@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // Us
 import Auth from "./Auth";
 import FaqForm from "./components/faqForm";
 import Dashboard from "./components/dashboard";
+import ModuleChecker from "./components/erp";
 // Assuming you have a NewScreen component
 
 const App = () => {
@@ -28,7 +29,7 @@ const App = () => {
     } />
     <Route path ="/update" element={<FaqForm></FaqForm>}/>
     <Route path ="/dash" element={<Dashboard></Dashboard>}/>
-    
+    <Route path ="/erp" element={<ModuleChecker></ModuleChecker>}/>
       
     </Routes>
   </Router>

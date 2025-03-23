@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import logo from "../assets/logo.png"
 
 const Dashboard = () => {
   const [groupedFAQs, setGroupedFAQs] = useState([]);
@@ -19,10 +20,14 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="p-5 bg-blue-600" >
+    <div className="p-5 bg-blue-600 relative">
+      {/* Image at Top Left */}
+      <img src={logo} alt="Logo" className="absolute top-5 left-5 w-16 h-16" />
+
       <h1 className="text-3xl font-bold mb-8 text-center">
         Frequently Hit FAQs Dashboard
       </h1>
+
       {groupedFAQs.length === 0 ? (
         <p className="text-center">No FAQ data available.</p>
       ) : (

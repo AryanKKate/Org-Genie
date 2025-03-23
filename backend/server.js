@@ -4,6 +4,9 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const queryRoutes = require('./queryRoute');
 const faqRoutes = require('./routes/faqRoutes');
+const erpRoutes = require('./routes/erpRoutes');
+
+
 
 const app = express();
 app.use(cors());
@@ -20,10 +23,34 @@ mongoose.connect(process.env.MONGO_URI, {
 // Current routes
 app.use('/', queryRoutes);
 app.use("/", faqRoutes);
+app.use("/erp", erpRoutes);
 
-// New route: /dash
-// This route groups FAQs by category (using "Uncategorized" if category is null)
-// and sorts FAQs in each group in descending order by the "hit" field.
+// API to list available modules
+app.get("/list_modules", async (req, res) => {
+  try {
+    const modules = await DataModel.distinct("module"); // Modify the field as per your DB schema
+    res.json({ available_modules: modules });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch modules" });
+  }
+});
+
+// API to fetch data based on selected module
+app.get("/check_module/:module", async (req, res) => {
+  try {
+    const module = req.params.module;
+    const document = await DataModel.findOne({}, { [module]: 1, _id: 0 }); // Fetch only the required module
+
+    if (!document || !document[module]) {
+      return res.status(404).json({ error: "Module not found or empty" });
+    }
+
+    res.json({ data: document[module] });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch data" });
+  }
+});
+
 app.get('/dash', async (req, res) => {
   try {
     // Import FAQ model (adjust path as needed)
