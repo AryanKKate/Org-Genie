@@ -16,6 +16,33 @@ const classifyCategory = (question) => {
 };
 
 // Add FAQ
+// router.post("/add-faq", async (req, res) => {
+//   try {
+//     const { question, answer } = req.body;
+
+//     if (!question || !answer) {
+//       return res.status(400).json({ error: "Question and answer are required" });
+//     }
+
+//     const category = classifyCategory(question);
+
+//     const newFaq = new Faq({ question, answer, category });
+
+//     console.log("    Saving to MongoDB:", newFaq); // Debugging log
+
+//     await newFaq.save();
+
+//     console.log("  FAQ saved successfully!");
+//     res.status(201).json({ message: "FAQ added successfully", data: newFaq });
+//   } catch (error) {
+//     console.error("   Error Saving FAQ:", error);
+//     res.status(500).json({ error: "Internal Server Error" });
+//   }
+// });
+
+
+const axios = require("axios");
+
 router.post("/add-faq", async (req, res) => {
   try {
     const { question, answer } = req.body;
@@ -26,28 +53,37 @@ router.post("/add-faq", async (req, res) => {
 
     const category = classifyCategory(question);
 
-    const newFaq = new Faq({ question, answer, category });
+    const newFaq = new Faq({ question, answer, category, hit: 0 });
 
-    console.log("📌 Saving to MongoDB:", newFaq); // Debugging log
+    console.log("    Saving to MongoDB:", newFaq); // Debugging log
 
     await newFaq.save();
 
-    console.log("✅ FAQ saved successfully!");
+    console.log("  FAQ saved successfully!");
+
+    // 🔄 **Automatically update FAISS index after saving**
+    axios.post("http://localhost:5001/update_index")
+      .then(response => console.log("   FAISS index updated:", response.data))
+      .catch(error => console.error("   FAISS update failed:", error.response?.data || error.message));
+
     res.status(201).json({ message: "FAQ added successfully", data: newFaq });
+
   } catch (error) {
-    console.error("❌ Error Saving FAQ:", error);
+    console.error("   ❌ Error Saving FAQ:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+
 
 // Get FAQs
 router.get("/faqs", async (req, res) => {
   try {
     const faqs = await Faq.find();
-    console.log("📌 Fetching FAQs:", faqs); // Debugging log
+    console.log("    Fetching FAQs:", faqs); // Debugging log
     res.json(faqs);
   } catch (error) {
-    console.error("❌ Error Fetching FAQs:", error);
+    console.error("   Error Fetching FAQs:", error);
     res.status(500).json({ error: "Error fetching FAQs" });
   }
 });
