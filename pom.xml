@@ -1,0 +1,46 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0  http://maven.apache.org/xsd/maven-4.0.0.xsd"> 
+ <modelVersion>4.0.0</modelVersion> 
+ <groupId>com.selenium</groupId> 
+ <artifactId>SeleniumTestProject</artifactId> 
+ <version>1.0-SNAPSHOT</version> 
+ <packaging>jar</packaging> 
+ <dependencies> 
+ <!-- Selenium Java --> 
+ <dependency> 
+ <groupId>org.seleniumhq.selenium</groupId> 
+ <artifactId>selenium-java</artifactId> 
+ <version>4.11.0</version> 
+ </dependency> 
+ <!-- TestNG --> 
+ <dependency> 
+ <groupId>org.testng</groupId> 
+ <artifactId>testng</artifactId> 
+ <version>7.7.0</version> 
+ <scope>test</scope> 
+ </dependency> 
+ </dependencies> 
+ <build> 
+ <plugins> 
+ <!-- Updated Maven Surefire Plugin (Fixes TestNG issue) -->  <plugin> 
+ <groupId>org.apache.maven.plugins</groupId> 
+ <artifactId>maven-surefire-plugin</artifactId> 
+ <version>2.22.2</version> <!-- Recommended stable version -->  <configuration> 
+ <includes> 
+ <include>**/*Test.java</include> 
+ </includes> 
+ </configuration>
+ </plugin> 
+ <!-- Maven Compiler Plugin --> 
+ <plugin> 
+ <groupId>org.apache.maven.plugins</groupId> 
+ <artifactId>maven-compiler-plugin</artifactId> 
+ <version>3.8.1</version> 
+ <configuration> 
+ <source>11</source> 
+ <target>11</target> 
+ </configuration> 
+ </plugin> 
+ </plugins> 
+ </build> 
+</project> 
